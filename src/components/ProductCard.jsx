@@ -1,41 +1,46 @@
 import React from "react";
-import PropTypes from "prop-types"
+import PropTypes from "prop-types";
 import Tag from "./Tag";
 import ProductDetails from "./ProductDetails";
 import ProductActionsButton from "./ProductActionsButton";
 import ProductImg from "./ProductImg";
 
-// Anh san pham (bat buoc)
-// ten san pham (bat buoc)
-// Gia san pham (ko bat buoc)
-// Danh gia (ko bat buoc)
-
-
 /**
  * @typedef ProductCardProps
- * 
+ *
  * @property {string,number,bool}
  */
 
 /**
- * 
- * @param {ProductCardProps} props 
- * @returns 
+ *
+ * @param {ProductCardProps} props
+ * @returns
  */
 
-const ProductCard = ({ image, title, originalPrice, salePrice, vote }) => {
+const ProductCard = ({
+  images,
+  title,
+  brand,
+  price,
+  discountPercentage,
+  vote,
+}) => {
+
+  const randomImage = Math.floor(Math.random() * images.length)
+
+  const firstImageSrc = images[randomImage];
   return (
     <div>
       <div className="card h-100">
         {/* Sale badge*/}
-        {salePrice && <Tag />}
-        {/* Product image*/}
-        <ProductImg src={image} alt={title} />
+        {discountPercentage && <Tag />}
+        {/* Product images*/}
+        <ProductImg src={firstImageSrc} alt={brand} />
         {/* Product details*/}
         <ProductDetails
           title={title}
-          originalPrice={originalPrice}
-          salePrice={salePrice}
+          originalPrice={price}
+          salePrice={discountPercentage}
           vote={vote}
         />
         {/* Product actions*/}
@@ -46,10 +51,12 @@ const ProductCard = ({ image, title, originalPrice, salePrice, vote }) => {
 };
 
 ProductCard.propTypes = {
-  image: PropTypes.string.isRequired,
+  images: PropTypes.array.isRequired,
   title: PropTypes.string.isRequired,
-  originalPrice: PropTypes.number,
+  brand: PropTypes.string.isRequired,
+  price: PropTypes.number,
+  discountPercentage: PropTypes.number,
   vote: PropTypes.bool,
-}
+};
 
 export default ProductCard;

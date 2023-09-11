@@ -7,6 +7,9 @@ import Header from "./components/Header";
 import ProductList from "./components/ProductList";
 import Footer from "./components/Footer";
 import Welcome from "./components/Welcome";
+import Counter from "./components/Couter";
+import { useEffect, useState } from "react";
+import Clock from "./components/Clock";
 
 function App() {
   // const userName = "Le Huu Trong";
@@ -15,36 +18,40 @@ function App() {
   //   age: 21,
   // };
 
-  const products = [
-    {
-        id: 1,
-        title: "iPhone 9",
-        originalPrice: 549,
-        image: "https://placehold.co/450x300",
-        voted: true,
-    },
-    {
-        id: 2,
-        title: "iPhone X",
-        originalPrice: 799,
-        image: "https://placehold.co/450x300",
-        voted: false,
-    },
-    {
-        id: 3,
-        title: "Samsung Universe 9",
-        originalPrice: 399,
-        image: "https://placehold.co/450x300",
-        voted: true,
-    },
-];
+  // const [enableCounter, setEnableCounter] = useState(true);
+
+  // const handleChange = (e) => {
+  //   setEnableCounter(e.target.checked);
+  // };
+
+  // const [showClock, setShowClock] = useState(true);
+
+  // const toggleClock = () => {
+  //   setShowClock(!showClock);
+  // };
 
   return (
     <>
-      <Welcome name=""/>
+      {/* <h1>Effects</h1>
+
+      <label>
+        <input
+          type="checkbox"
+          checked={enableCounter}
+          onChange={handleChange}
+        />
+        <span>Enable counter</span>
+      </label>
+
+      <Counter disabled={!enableCounter} />
+      <button onClick={toggleClock}>Toggle clock</button>
+
+      {showClock && <Clock />} */}
+      
+      <Welcome name="" />
       <Navication />
       <Header />
-      <ProductList products={products} />
+      <ProductList />
       <Footer />
     </>
   );

@@ -14,8 +14,8 @@ import PropTypes from "prop-types";
  * @returns
  */
 
-const ProductImg = ({ src, alt }) => {
-  return <img className="card-img-top" src={src} alt={alt} />;
+const ProductImg = ({ src, brand }) => {
+  return <img className="card-img-top" src={src} alt={brand} />;
 };
 
 ProductImg.propTypes = {

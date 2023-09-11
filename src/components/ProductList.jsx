@@ -1,23 +1,66 @@
-import React from "react";
-import PropTypes from "prop-types"
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import ProductCard from "./ProductCard";
 
 /**
  * @typedef ProductListProps
- * 
+ *
  * @property {array} products
  */
 
 /**
- * 
- * @param {ProductListProps} props 
- * @returns 
+ *
+ * @param {ProductListProps} props
+ * @returns
  */
 
-const ProductList = ({ products }) => {
+const ProductList = () => {
+  const [products, setProducts] = useState([]);
+
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let ignore = false;
+
+    const getProducts = async () => {
+      try {
+        const res = await fetch("https://dummyjson.com/products");
+        const data = await res.json();
+
+        if (!ignore) setProducts(data.products);
+      } catch (error) {
+        if (!ignore) setError(error);
+      } finally {
+        if (!ignore) setLoading(false);
+      }
+    };
+    getProducts();
+
+    return () => {
+      ignore = true;
+    };
+  }, []);
+
+  // if (loading) {
+  //   return <div>Loading...</div>;
+  // }
+
+  // if (error) {
+  //   return <div>Lỗi</div>;
+  // }
+
   const productCard = products.map((product) => (
     <div key={product.id} className="col mb-5">
-      <ProductCard {...product}/>
+      {loading ? (
+        <div>Loading...</div>
+      ) : error ? (
+        <div>lỗi</div>
+      ) : (
+        <>
+          <ProductCard {...product} />
+        </>
+      )}
     </div>
   ));
 
@@ -34,6 +77,6 @@ const ProductList = ({ products }) => {
 
 ProductList.propTypes = {
   products: PropTypes.array.isRequired,
-}
+};
 
 export default ProductList;
